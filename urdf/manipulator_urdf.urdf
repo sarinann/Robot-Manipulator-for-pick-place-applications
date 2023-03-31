@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="manipulator">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="-0.00036702 -0.00036758 0.016561"
+        rpy="0 0 0" />
+      <mass
+        value="0.50431" />
+      <inertia
+        ixx="0.00060258"
+        ixy="1.7502E-05"
+        ixz="1.5277E-06"
+        iyy="0.00060261"
+        iyz="1.5241E-06"
+        izz="0.0010709" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="shoulder">
+    <inertial>
+      <origin
+        xyz="-0.010165 -0.012909 0.058697"
+        rpy="0 0 0" />
+      <mass
+        value="1.5739" />
+      <inertia
+        ixx="0.0025901"
+        ixy="-4.0187E-05"
+        ixz="0.00019767"
+        iyy="0.0025699"
+        iyz="0.00025105"
+        izz="0.0028304" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/shoulder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/shoulder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_pan_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.0303"
+      rpy="0 0 -3.1416" />
+    <parent
+      link="base" />
+    <child
+      link="shoulder" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="upperarm">
+    <inertial>
+      <origin
+        xyz="-0.21645 -0.0053693 0.057842"
+        rpy="0 0 0" />
+      <mass
+        value="4.6705" />
+      <inertia
+        ixx="0.0063775"
+        ixy="-0.00037173"
+        ixz="-2.5454E-08"
+        iyy="0.021319"
+        iyz="2.3142E-07"
+        izz="0.021825" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/upperarm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/upperarm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_lift_joint"
+    type="revolute">
+    <origin
+      xyz="-0.046609 -0.059142 0.0597"
+      rpy="1.5708 0 -0.66743" />
+    <parent
+      link="shoulder" />
+    <child
+      link="upperarm" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="forearm">
+    <inertial>
+      <origin
+        xyz="-0.17391 9.6969E-05 -0.04783"
+        rpy="0 0 0" />
+      <mass
+        value="2.6856" />
+      <inertia
+        ixx="0.0022411"
+        ixy="4.7009E-06"
+        ixz="-0.00011284"
+        iyy="0.011655"
+        iyz="3.2916E-07"
+        izz="0.011808" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/forearm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/forearm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elbow_joint"
+    type="revolute">
+    <origin
+      xyz="-0.42487 -0.010539 -0.0067"
+      rpy="0 0 0" />
+    <parent
+      link="upperarm" />
+    <child
+      link="forearm" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="wrist1">
+    <inertial>
+      <origin
+        xyz="-0.0037658 1.2476E-05 0.042031"
+        rpy="0 0 0" />
+      <mass
+        value="0.54096" />
+      <inertia
+        ixx="0.00041143"
+        ixy="2.8482E-07"
+        ixz="-4.2803E-05"
+        iyy="0.00038707"
+        iyz="4.0862E-07"
+        izz="0.0003675" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist_1_joint"
+    type="continuous">
+    <origin
+      xyz="-0.39225 0.00021284 -0.01183"
+      rpy="0 0 -1.5241" />
+    <parent
+      link="forearm" />
+    <child
+      link="wrist1" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="wrist2">
+    <inertial>
+      <origin
+        xyz="-0.0024205 0.0028851 0.042201"
+        rpy="0 0 0" />
+      <mass
+        value="0.54096" />
+      <inertia
+        ixx="0.0003975"
+        ixy="-1.2057E-05"
+        ixz="-2.7303E-05"
+        iyy="0.00040101"
+        iyz="3.2966E-05"
+        izz="0.0003675" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist_2_joint"
+    type="revolute">
+    <origin
+      xyz="0.04155 0 0.0532"
+      rpy="-1.5708 -0.66797 -1.5708" />
+    <parent
+      link="wrist1" />
+    <child
+      link="wrist2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="wrist3">
+    <inertial>
+      <origin
+        xyz="-0.00014012 -2.9199E-05 0.018177"
+        rpy="0 0 0" />
+      <mass
+        value="0.16482" />
+      <inertia
+        ixx="6.8731E-05"
+        ixy="1.3976E-07"
+        ixz="1.0337E-07"
+        iyy="6.809E-05"
+        iyz="2.1542E-08"
+        izz="0.00011604" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://manipulator/meshes/wrist3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist_3_joint"
+    type="revolute">
+    <origin
+      xyz="0.026809 -0.031744 0.05337"
+      rpy="-1.5708 -0.046689 -2.4403" />
+    <parent
+      link="wrist2" />
+    <child
+      link="wrist3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

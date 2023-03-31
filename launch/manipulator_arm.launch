@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find manipulator)/world/warehouse.world"/>
+    	<arg name="paused" value="true"/>
+	<arg name="use_sim_time" value="true"/>
+	<arg name="gui" value="true"/>
+	<arg name="headless" value="false"/>
+    </include>
+
+    <!-- Importing the robot urdf file -->
+    <param name="robot_description" command="cat '$(find manipulator)/urdf/manipulator.urdf'" />
+    <param name = "my_robot" value="manipulator"/> 
+
+    <!-- Spawning the model in gazebo -->
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args=" -param robot_description -urdf -model manipulator" output="screen" />
+
+    <!-- Including the yaml file -->
+    <rosparam file="$(find manipulator)/config/config_controllers.yaml" command="load" />
+
+    <!-- Set the joint_state input false from gui -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False" />
+    </node>
+
+    <!-- Defining co-ordinates between world and base link -->
+    <node pkg="tf" type="static_transform_publisher" name="map_to_base" args="0 0 0 0 0 0 1 /map /base_link 10" />
+    
+
+    <!-- loading the controllers using control spawner -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/manipulator" args="joint_state_controller 
+    shoulder_pan_trans shoulder_lift_trans elbow_trans elbow_motor wrist_2_trans wrist_3_trans gripper_finger_joint_trans gripper_left_inner_knuckle_joint_trans gripper_left_inner_finger_joint_trans gripper_right_outer_knuckle_joint_trans gripper_right_inner_knuckle_joint_trans gripper_right_inner_finger_joint_trans"/>
+
+    <!-- Publishing the robot status to ros pkgs -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+    <!-- Default node for rostopic -->
+    <node name="fake_joint_calibration" pkg="rostopic" type="rostopic" args="pub /calibrated std_msgs/Bool true" />
+
+</launch>

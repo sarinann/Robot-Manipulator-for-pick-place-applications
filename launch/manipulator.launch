@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find manipulator)/world/warehouse.world"/>
+    	<arg name="paused" value="true"/>
+	<arg name="use_sim_time" value="true"/>
+	<arg name="gui" value="true"/>
+	<arg name="headless" value="false"/>
+    </include>
+
+    <!-- Importing the robot urdf file -->
+    <param name="robot_description" command="cat '$(find manipulator)/urdf/manipulator.urdf'" />
+    <param name = "my_robot" value="manipulator"/> 
+    <arg name ="init_pose" value="-x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+
+    <!-- Spawning the model in gazebo -->
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="$(arg init_pose) -param robot_description -urdf -model manipulator" output="screen" />
+
+    <!-- Including the yaml file -->
+    <rosparam file="$(find manipulator)/config/config_controllers.yaml" command="load" />
+
+    <!-- Set the joint_state input false from gui -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False" />
+    </node>
+
+    <!-- Defining co-ordinates between world and base link -->
+    <node pkg="tf" type="static_transform_publisher" name="map_to_base" args="0 0 0 0 0 0 1 /map /base_link 10" />
+    
+
+    <!-- loading the controllers using control spawner -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/manipulator" args="joint_state_controller 
+    motor_1_revolute_controller motor_2_revolute_controller motor_3_revolute_controller motor_4_revolute_controller motor_5_revolute_controller motor_6_revolute_controller motor_7_revolute_controller motor_8_revolute_controller motor_9_revolute_controller motor_10_revolute_controller motor_11_revolute_controller motor_12_revolute_controller"/>
+
+    <!-- Publishing the robot status to ros pkgs -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+    <!-- Default node for rostopic -->
+    <node name="fake_joint_calibration" pkg="rostopic" type="rostopic" args="pub /calibrated std_msgs/Bool true" />
+
+</launch>

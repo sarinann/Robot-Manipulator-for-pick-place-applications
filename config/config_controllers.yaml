@@ -1,0 +1,76 @@
+manipulator:
+  # default controller
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Controller 1
+  shoulder_pan_trans:
+    type: effort_controllers/JointPositionController 
+    joint: "shoulder_pan_joint"
+    pid : {p: 650.0, i: 0.0, d: 100.0}
+
+  # Controller 2
+  shoulder_lift_trans:
+    type: effort_controllers/JointPositionController 
+    joint: "shoulder_lift_joint"
+    pid : {p: 700.0, i: 0.01, d: 69.0}
+
+  # Controller 3
+  elbow_trans:
+    type: effort_controllers/JointPositionController  
+    joint: "elbow_joint"
+    pid : {p: 420.0, i: 0.01, d: 10.0}
+
+  # Controller 4
+  elbow_motor:
+    type: effort_controllers/JointPositionController 
+    joint: "wrist_1_joint"
+    pid : {p: 420.0, i: 0, d: 10.0}
+
+  # Controller 5
+  wrist_2_trans:
+    type: effort_controllers/JointPositionController 
+    joint: "wrist_2_joint"
+    pid : {p: 420.0, i: 0, d: 10.0}
+
+  # Controller 6
+  wrist_3_trans:
+    type: effort_controllers/JointPositionController  
+    joint: "wrist_3_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  # Controller 7
+  gripper_finger_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_finger_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  gripper_left_inner_knuckle_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_left_inner_knuckle_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  gripper_left_inner_finger_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_left_inner_finger_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  gripper_right_outer_knuckle_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_right_outer_knuckle_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  gripper_right_inner_knuckle_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_right_inner_knuckle_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+  gripper_right_inner_finger_joint_trans:
+    type: position_controllers/JointPositionController  
+    joint: "gripper_right_inner_finger_joint"
+    pid : {p: 10.0, i: 0, d: 1.0}
+
+
+
+
